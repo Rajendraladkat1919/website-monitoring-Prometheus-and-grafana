@@ -1,0 +1,40 @@
+version: "2"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    hostname: prometheus
+    restart: always
+    tty: true
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana
+    restart: always
+    environment:
+      - GF_AUTH_PROXY_ENABLED=true
+      - GF_PATHS_PROVISIONING=/var/lib/grafana/provisioning/
+    volumes:
+      - ./provisioning/:/var/lib/grafana/provisioning/
+    ports:
+      - 3000:3000
+    depends_on:
+      - prometheus
+
+  blackbox:
+    image: bitnami/blackbox-exporter:latest
+    container_name: blackbox
+    hostname: blackbox
+    restart: always
+    volumes:
+      - ./blackbox.yml/:/opt/bitnami/blackbox-exporter/blackbox.yml
+    ports:
+      - 9115:9115
+    depends_on:
+      - prometheus
