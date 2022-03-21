@@ -9,6 +9,7 @@ services:
     tty: true
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/data:/prometheus
     ports:
       - 9090:9090
 
@@ -21,14 +22,16 @@ services:
       - GF_AUTH_PROXY_ENABLED=true
       - GF_PATHS_PROVISIONING=/var/lib/grafana/provisioning/
     volumes:
-      - ./provisioning/:/var/lib/grafana/provisioning/
+      - ./grafana/:/var/lib/grafana/provisioning/
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/log:/var/log/grafana
     ports:
       - 3000:3000
     depends_on:
       - prometheus
 
   blackbox:
-    image: bitnami/blackbox-exporter:latest
+    image: prom/blackbox-exporter
     container_name: blackbox
     hostname: blackbox
     restart: always
