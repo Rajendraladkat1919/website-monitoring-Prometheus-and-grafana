@@ -1,6 +1,5 @@
 # website-monitoring-Prometheus-and-grafana
 
-
 # Introduction:
 This repo contains docker compose setup using grafana, prometheus and blackbox which helps in monitoring the various website provided inside `prometheus.yml` config file.
 All the modules are added inside the `blackbox.yaml` configuration file.
