@@ -31,7 +31,7 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox:9115  # The blackbox exporter's real hostname:port.
 
-  - job_name: blackbox_all
+  - job_name: 'blackbox_dns'
     metrics_path: /probe
     params:
       module: [ http_2xx ]  # Look for a HTTP 200 response.
@@ -57,10 +57,10 @@ scrape_configs:
       - source_labels: [__meta_dns_name]
         target_label: vhost  # and store it in 'vhost' label
 
-  - job_name: website-monitoring-icmp
+  - job_name: 'ICMP'
     metrics_path: /probe
     params:
-      module: [http_2xx]
+      module: [icmp]
     static_configs:
       - targets:
         - localhost
@@ -68,6 +68,7 @@ scrape_configs:
         - robustperception.io
         - www.google.com
         - www.microsoft.com
+        - test-retail.sc.com
         
     relabel_configs:
       - source_labels: [__address__]
