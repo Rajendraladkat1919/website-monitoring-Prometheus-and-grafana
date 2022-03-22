@@ -68,7 +68,6 @@ scrape_configs:
         - robustperception.io
         - www.google.com
         - www.microsoft.com
-        - test-retail.sc.com
         
     relabel_configs:
       - source_labels: [__address__]
