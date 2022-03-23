@@ -53,4 +53,4 @@ modules:
     dns:
       transport_protocol: "tcp"
       preferred_ip_protocol: ip4
-      query_name: "www.https://test-retail.sc.com"
+      query_name: "https://www.google.com"
